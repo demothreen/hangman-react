@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import SecretWord from "./secretWord";
-import ProgressPictures from "./progressPictures";
+import {SecretWord} from "./secretWord";
+import {ProgressPictures} from "./progressPictures";
 
 class InputWord extends Component {
     constructor(props) {
