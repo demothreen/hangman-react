@@ -18,46 +18,38 @@ class InputWord extends Component {
     }
 
     searchLetter() {
-
-        let usedLetters = [];
-        usedLetters.push(this.state.letter);
+        const indexOfLetter = this.state.word.indexOf(this.state.letter);
+        if (indexOfLetter === -1) {
+            this.setState({
+                faultCounter: this.state.faultCounter + 1
+            })
+        } else {
+            const letters = this.state.letters.map((item) => {
+                if (item.letter === this.state.letter) {
+                    item.check = true;
+                }
+                return item;
+            })
+            this.setState({
+                letters: letters
+            })
+        }
+        
         this.setState({
             letter: '',
         })
-
-        let obj = this.state.letters.filter((arr, i) => {
-            if (arr.letter === this.state.letter) {
-                return arr.check = true
-            }
-        })
-
-        if (this.state.word.indexOf(this.state.letter) === -1) {
-            this.setState({
-                faultCounter: this.state.faultCounter + 1
-            });
-        }
-
-        for (let index in this.state.letters) {
-            if (this.state.letters[index].id === obj.id)
-                this.state.letters[index].check = true
-        }
     }
 
     showSecretWord(word) {
-        this.state.letters = [];
-        for (let index in word) {
-            this.state.letters.push({
-                id: index,
-                letter: word[index],
-                check: false
-            })
-        }
+        const letters = word.map((letter, index) => {
+            return {id: index, letter: letter, check: false};
+        });
 
         this.setState({
+            letters: letters,
             hideClick: !this.state.hideClick,
             init: true
         });
-
     }
 
     render() {
